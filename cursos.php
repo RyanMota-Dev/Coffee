@@ -1,10 +1,3 @@
-<?php
-session_start();
-include 'conexao.php';
-$sql = "SELECT titulo, descricao, duracao, nivel, categoria FROM cursos ORDER BY id DESC";
-$result = mysql_query($sql);
-$num_rows = $result ? mysql_num_rows($result) : 0;
-?>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,7 +13,7 @@ $num_rows = $result ? mysql_num_rows($result) : 0;
 </head>
 
 <body>
-    <?php include'navbar.php'?>
+    <?php include 'navbar.php'; ?>
 
     <main>
         <section class="secao_principal">
@@ -29,7 +22,8 @@ $num_rows = $result ? mysql_num_rows($result) : 0;
                 <p>Seja você um iniciante curioso ou um barista experiente em busca de aprimoramento, nossos cursos foram desenhados para aprofundar sua conexão com o universo do café.</p>
             </div>
         </section>
-                <section class="container" style="text-align: right; padding-top: 0; padding-bottom: 1rem;">
+        
+        <section class="container" style="text-align: right; padding-top: 0; padding-bottom: 1rem;">
             <button id="btn-container" class="btn1" style="padding: 0.7rem 1.5rem; margin-top: 0; font-size: 1rem;">
                 + Adicionar Novo Curso
             </button>
@@ -39,30 +33,69 @@ $num_rows = $result ? mysql_num_rows($result) : 0;
             <h2 class="titulo-secao">Nossos Cursos</h2>
             <p class="section-subtitle">Explore a nossa biblioteca completa de aulas para todos os níveis.</p>
 
-            <?php if ($result): ?>
-                <?php if ($num_rows > 0): ?>
-                    <ul class="courses-grid" id="allCoursesList">
-                        <?php while($row = mysql_fetch_assoc($result)): ?>
-                            <li class="course-item">
-                                <h4><?php echo htmlspecialchars($row["titulo"]); ?></h4>
-                                <p><?php echo htmlspecialchars($row["descricao"]); ?></p>
-                                <div class="detalhes">
-                                    <span><strong>Duração:</strong> <?php echo htmlspecialchars($row["duracao"]); ?></span>
-                                    <span><strong>Nível:</strong> <?php echo htmlspecialchars($row["nivel"]); ?></span>
-                                    <span><strong>Categoria:</strong> <?php echo htmlspecialchars($row["categoria"]); ?></span>
-                                </div>
-                            </li>
-                        <?php endwhile; ?>
-                    </ul>
-                <?php else: ?>
-                    <p style="text-align: center; font-size: 1.2rem; margin-top: 2rem;">Nenhum curso cadastrado ainda.</p>
-                <?php endif; ?>
-            <?php else: ?>
-                <p style="text-align: center; color: red; font-size: 1.2rem; margin-top: 2rem;">Erro ao executar a consulta: <?php echo mysql_error(); ?></p>
-            <?php endif; ?>
+            <ul class="courses-grid" id="allCoursesList">
+                
+                <li class="course-item">
+                    <h4>Introdução ao Café Especial</h4>
+                    <p>Descubra os fundamentos do café especial, desde o grão até a xícara. Perfeito para quem está começando.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 2 horas</span>
+                        <span><strong>Nível:</strong> Iniciante</span>
+                        <span><strong>Categoria:</strong> Essencial</span>
+                    </div>
+                </li>
 
-            <?php mysql_close(); ?>
+                <li class="course-item">
+                    <h4>Métodos de Preparo: V60 e Aeropress</h4>
+                    <p>Aprenda as técnicas para extrair o melhor sabor do seu café usando os métodos V60 e Aeropress.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 3 horas</span>
+                        <span><strong>Nível:</strong> Intermediário</span>
+                        <span><strong>Categoria:</strong> Métodos de Preparo</span>
+                    </div>
+                </li>
 
+                <li class="course-item">
+                    <h4>Latte Art para Iniciantes</h4>
+                    <p>Domine a vaporização do leite e aprenda a criar os desenhos clássicos como o coração e a tulipa no seu cappuccino.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 4 horas</span>
+                        <span><strong>Nível:</strong> Iniciante</span>
+                        <span><strong>Categoria:</strong> Barista</span>
+                    </div>
+                </li>
+
+                <li class="course-item">
+                    <h4>Degustação e Análise Sensorial</h4>
+                    <p>Treine seu paladar para identificar diferentes notas, aromas e sabores nos cafés de diversas origens.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 3 horas</span>
+                        <span><strong>Nível:</strong> Todos os Níveis</span>
+                        <span><strong>Categoria:</strong> Essencial</span>
+                    </div>
+                </li>
+
+                <li class="course-item">
+                    <h4>A História do Café no Brasil</h4>
+                    <p>Uma viagem fascinante pela história do grão que moldou a cultura e a economia do nosso país.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 1.5 horas</span>
+                        <span><strong>Nível:</strong> Todos os Níveis</span>
+                        <span><strong>Categoria:</strong> História</span>
+                    </div>
+                </li>
+
+                <li class="course-item">
+                    <h4>Curso de Barista Profissional</h4>
+                    <p>Um curso completo que abrange desde a regulagem do moinho, extração de espresso perfeito até o atendimento ao cliente.</p>
+                    <div class="detalhes">
+                        <span><strong>Duração:</strong> 20 horas</span>
+                        <span><strong>Nível:</strong> Avançado</span>
+                        <span><strong>Categoria:</strong> Barista</span>
+                    </div>
+                </li>
+
+            </ul>
             <div style="text-align: center; margin-top: 4rem;">
                 <a href="#" class="btn1">Ver Calendário e Inscrições</a>
             </div>
@@ -125,6 +158,7 @@ $num_rows = $result ? mysql_num_rows($result) : 0;
             modal.addEventListener('click', e => { if (e.target === modal) { modal.classList.remove('open'); form.reset(); } });
         });
     </script>
-        <?php include'footer.php'?>
+    
+    <?php include 'footer.php'; ?>
 </body>
 </html>
